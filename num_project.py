@@ -73,8 +73,8 @@ print_data()
 # c) r_norm = R_ij/r_ij
 #
 # 2. Calculate force exerted upon celestial body by other bodies:
-# F = -G*m_i * SUM(m_j/(r_ij + E)*R_ij)
-# here, m_j/(r_ij + E)*R_ij is the force all other bodies exert upon this one
+# F = -G*m_i * SUM(m_j/((r_ij + E)**3)*R_ij)
+# here, SUM(m_j/((r_ij + E)**3)*R_ij) is the force all other bodies exert upon this one
 # 
 # 3. Update celestial body data:
 # a) a_i = F/m_i
