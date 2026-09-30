@@ -5,17 +5,15 @@ from scipy.optimize import fsolve
 import math
 import sys
 
-# ans = input("Type in input data file: ")
-# ans = "./Nbody/Nbody/input_data/" + ans
+b_am = input("Type in amount of celestial bodies: ")
+# steps = int(input("Type in amount of steps: "))
+steps = 200
+formatted_b_am = b_am.zfill(5)
+filename = f'ellipse_N_{formatted_b_am}'
+fetchdata = f'./Nbody/Nbody/input_data/{filename}.gal'
 
-data=np.fromfile("./Nbody/Nbody/input_data/circles_N_2.gal" ,dtype=float)
+data=np.fromfile(fetchdata ,dtype=float)
 
-# print(ans)
-# print(data)
-# data.tofile("sol_N_2.gal")
-# data=np.fromfile("circles_N_2.gal",dtype=float)
-# print(data)
-# data.tofile("sol_N_2.gal")
 
 debug = False
 
@@ -23,27 +21,17 @@ def bug_print(text):
     if debug:
         print(text)
 
-# bug_print(data)
-
 N = int(round(data.size / 6))
 G = 100/N
 E = 0.001
-dt = 0.00005
+dt = 0.00001
 
 X = 0
 Y = 1
 
-# bug_print(N)
-
-# x_pos = np.zeros(N)
-# y_pos = np.zeros(N)
-
 pos = np.zeros((N, 2))
 
 m = np.zeros(N)
-
-# x_vel = np.zeros(N)
-# y_vel = np.zeros(N)
 
 vel = np.zeros((N, 2))
 
@@ -91,8 +79,10 @@ print_data()
 # a) a_i = F/m_i
 # b) vel_i += dt*a_i
 # c) pos_i += dt*vel_i
+# to clarify, i typed all this out, this wasn't AI made
 
-def sim_step():
+
+def sim_step():    
     for i in range(N):
         f_sum = np.zeros(2)
         for j in range(N):
@@ -105,15 +95,10 @@ def sim_step():
             r_ij = np.sqrt((pos[i][0] - pos[j][0])**2 + (pos[i][1] - pos[j][1])**2)
             
             # r_norm = R_ij/r_ij
-            
             f_sum += (m[j]/(r_ij + E)**3)*R_ij
             
         F = -G*m[i]*f_sum
-        # print(F)
-        
         F_temp[i] = F
-        
-        # print(F_temp[i])
  
     for i in range(N):
         A = F_temp[i]/m[i]
@@ -123,39 +108,24 @@ def sim_step():
         pos[i][X] += dt * vel[i][X]
         pos[i][Y] += dt * vel[i][Y]
 
-steps = 10000
-# planet1 = np.zeros((steps, 2))
-# planet2 = np.zeros((steps, 2))
+def save_result_to_file(steps, filename):
+    # pos, b, vel, ps 
+    result = np.zeros(6 * N, dtype=float)
+    counter = 0
+    for i in range(N):
+        result[counter] = pos[i][X]
+        result[counter + 1] = pos[i][Y]
+        result[counter + 2] = m[i]
+        result[counter + 3] = vel[i][X]
+        result[counter + 4] = vel[i][Y]
+        result[counter + 5] = b[i]
+        counter += 6
+    result_filename = filename + '_output.gal'
+    result.tofile(result_filename)
 
-planetx = np.zeros(steps)
-planety = np.zeros(steps)
-
-planeta = np.zeros(steps)
-planetb = np.zeros(steps)
-
-for i in range(steps):
-    sim_step()
-    print(f'x1 = {pos[0][X]}, x2 = {pos[1][X]}')
-    print(f'y1 = {pos[0][Y]}, y2 = {pos[1][Y]}')
-    print("---")
+def main():
+    for i in range(steps):
+        sim_step()
+    save_result_to_file(steps, filename)
     
-    planetx[i] = pos[0][X]
-    planety[i] = pos[0][Y]
-
-    planeta[i] = pos[1][X]s
-    planetb[i] = pos[1][Y]
-    
-    # planet1[i][X] = pos[0][X]
-    # planet1[i][Y] = pos[0][Y]
-    # planet2[i][X] = pos[1][X]
-    # planet2[i][Y] = pos[1][Y]
-    
-    # print(pos[0][X], pos[0][Y])
-    # print(pos[1][X], pos[1][Y])
-
-# print_data()
-
-plt.plot(planetx, planety, "-b")
-plt.plot(planeta, planetb, "-r")
-# plt.plot(planet2[X], planet2[Y], "-r")
-plt.savefig("Test1")
+main()
