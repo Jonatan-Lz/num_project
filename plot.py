@@ -1,7 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-filename = "./Nbody/Nbody/result_output/ellipse_N_00100_output.gal"
+filename = "./Nbody/Nbody/result_output/ellipse_N_01000_output.gal"
 
 # Read binary .gal file
 data = np.fromfile(filename, dtype=np.float64)

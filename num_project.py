@@ -44,13 +44,13 @@ for val in data:
     if i % 6 == 0:
         pos[i // 6][0] = val
     elif i % 6 == 1:
-        pos[i // 6 - 1][1] = val
+        pos[i // 6][1] = val
     elif i % 6 == 2:
         m[i // 6] = val
     elif i % 6 == 3:
         vel[i // 6][0] = val
     elif i % 6 == 4:
-        vel[i // 6 - 1][1] = val
+        vel[i // 6][1] = val
     elif i % 6 == 5:
         b[i // 6] = val
     i += 1
@@ -85,6 +85,7 @@ print_data()
 def sim_step():    
     for i in range(N):
         f_sum = np.zeros(2)
+        
         for j in range(N):
             if(i == j):
                 continue
