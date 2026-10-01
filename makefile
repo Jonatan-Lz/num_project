@@ -11,7 +11,12 @@ SRC = Nbody/Nbody/compare_gal_files/compare_gal_files.c
 # Each line is one run, containing "file_from_folder1 file_from_folder2".
 # Keep the quotes around each pair so the loop treats them as a single unit!
 FILE_PAIRS = \
-    "10 Nbody/Nbody/ref_output_data/ellipse_N_00010_after200steps.gal Nbody/Nbody/result_output/ellipse_N_00010_output.gal" 
+    "10 Nbody/Nbody/ref_output_data/ellipse_N_00010_after200steps.gal Nbody/Nbody/result_output/ellipse_N_00010_output.gal" \
+	"100 Nbody/Nbody/ref_output_data/ellipse_N_00100_after200steps.gal Nbody/Nbody/result_output/ellipse_N_00100_output.gal" \
+	"500 Nbody/Nbody/ref_output_data/ellipse_N_00500_after200steps.gal Nbody/Nbody/result_output/ellipse_N_00500_output.gal" \
+	"1000 Nbody/Nbody/ref_output_data/ellipse_N_01000_after200steps.gal Nbody/Nbody/result_output/ellipse_N_01000_output.gal" \
+#	"2000 Nbody/Nbody/ref_output_data/ellipse_N_02000_after200steps.gal Nbody/Nbody/result_output/ellipse_N_02000_output.gal"
+
 # Default target
 all: $(TARGET)
 

@@ -1,10 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-filename = "./Nbody/Nbody/result_output/ellipse_N_01000_output.gal"
+name = "ellipse_N_02000_output.gal"
+filepath = f'./Nbody/Nbody/result_output/{name}'
 
 # Read binary .gal file
-data = np.fromfile(filename, dtype=np.float64)
+data = np.fromfile(filepath, dtype=np.float64)
 
 # Each particle has 6 doubles
 N = len(data) // 6
@@ -30,7 +31,7 @@ plt.gca().set_aspect("equal")
 
 plt.grid(True)
 
-plt.savefig("galaxy_after_200_steps.png", dpi=300, bbox_inches="tight")
+plt.savefig(f'{name}.png', dpi=300, bbox_inches="tight")
 plt.close()
 
-print("Saved galaxy_after_200_steps.png")
+print(f'{name}.png')
